@@ -15,6 +15,7 @@ module.exports=merge(base,{
   devServer:{
     port:8888, // 默认端口8080
     stats:"errors-only", // 仅打印报错信息
+    host:"0.0.0.0" // 支持手机事件访问
   },
 
 })
