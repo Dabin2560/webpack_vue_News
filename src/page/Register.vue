@@ -14,7 +14,7 @@
     <div class="formText">
       <AuthInput
         :value="form.username"
-        placeholder="用户名/手机号码"
+        placeholder="　用户名/手机号码"
         @input="handleUserVal"
         :rule="/^1[0-9]{4,10}$/"
         err_message="手机号码格式有误"
@@ -22,16 +22,15 @@
       <!--  -->
       <!-- 昵称 -->
       <AuthInput
-        :value="form.nickname"
-        placeholder="昵称"
-        @input="handleNickname"
+        placeholder="　昵称"
+        v-model="form.nickname"
         :rule="/^[0-9a-zA-Z\u4e00-\u9fa5]{2,6}$/"
         err_message="昵称格式有误"
       ></AuthInput>
       <!-- 密码框 -->
       <AuthInput
         type="password"
-        placeholder="密码"
+        placeholder="　密码"
         v-model="form.password"
         :rule="/^[0-9a-zA-Z]{3,12}$/"
         err_message="密码格式有误"
@@ -74,10 +73,10 @@ export default {
       this.form.username = value;
     },
     // 获取 昵称的input的value值
-    handleNickname(value) {
+    // handleNickname(value) {
       // 存入数据中
-      this.form.nickname = value;
-    },
+      // this.form.nickname = value;
+    // },
     // axios 通过下载/引入/注册/（挂载到vue原型上，方便$axios）
     // 提交表单
     handleSubmit() {

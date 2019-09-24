@@ -61,6 +61,7 @@ export default {
   padding: 15px 0;
   font-size: 18px;
   border-radius: 0;
+  text-indent: 0.5em;
 }
 .success {
   border-bottom-color: green;

@@ -15,6 +15,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // 引入vue-loader插件  npm install --save-dev vue-loader vue-template-compiler vue-style-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+// 引入打包文件夹的插件copy-webpack-plugin   先命令下载 npm install copy-webpack-plugin --save-dev
+const CopyPlugin=require("copy-webpack-plugin")
+
+
 // 暴露数据
 module.exports = {
   // 预防以后的多文件，以多文件方式配置
@@ -40,7 +44,7 @@ module.exports = {
       chunks: 'all' // 提取所有文件的共同模块
     },
   },
-  // 4.添加模块解释（不用下载 装载loader / 程序插件plugin）
+  // 4.添加模块解析（不用下载 装载loader / 程序插件plugin）
   resolve: {
     alias: {
       // 4.1 以后@符号就是src目录
@@ -65,6 +69,12 @@ module.exports = {
 
     // 4.调用vue加载器插件
     new VueLoaderPlugin(),
+
+    // 调用复制文件夹的插件
+    new CopyPlugin([
+      // 从目录下复制static文件夹到dist目录  dist/static（因为打包给后端的dist文件，可能没有静态，也可以手动拷贝：不装这个）
+      {from:'static',to:"static"},
+    ]),
 
   ],
 

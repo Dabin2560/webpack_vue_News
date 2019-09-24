@@ -14,7 +14,7 @@
     <div class="formText">
       <AuthInput
         :value="form.username"
-        placeholder="用户名/手机号码"
+        placeholder="　用户名/手机号码"
         @input="handleVal"
         :rule="/^1[0-9]{4,10}$/"
         err_message="手机号码格式有误"
@@ -23,14 +23,14 @@
       <!-- 密码框 -->
       <AuthInput
         type="password"
-        placeholder="密码"
+        placeholder="　密码"
         v-model="form.password"
-
         :rule="/^[0-9a-zA-Z]{3,12}$/"
         err_message="密码格式有误"
-        ></AuthInput>
+      ></AuthInput>
     </div>
-    <p class="tips">没有账号? 
+    <p class="tips">
+      没有账号?
       <router-link to="register">去注册</router-link>
     </p>
     <AuthButton text="登录" @click="handleSubmit"></AuthButton>
@@ -43,52 +43,56 @@ import AuthInput from "@/components/AuthInput";
 // 导入封装的 登录/注册 按钮
 import AuthButton from "@/components/AuthButton";
 
-
 export default {
   // 数据
   data() {
     return {
       form: {
         username: "",
-        password: "",
-
+        password: ""
       }
     };
   },
   // 注册组件
   components: {
     AuthInput,
-    AuthButton,
+    AuthButton
   },
   // 业务逻辑
   methods: {
     // 获取input的value值
     handleVal(value) {
       // 存入数据中
-      this.form.username = value;  
+      this.form.username = value;
     },
     // axios 通过下载/引入/注册/（挂载到vue原型上，方便$axios）
     // 提交表单
-    handleSubmit(){
+    handleSubmit() {
       this.$axios({
-        url:"/login",
-        method:"POST", // 请求类型get/post method：类似juurey.ajax的 type
-        data:this.form,
-      }).then(res=>{  // then然后 类似于juqery.ajax的 success 函数
-      // 常规获取 后台成功/错误信息
-      // let message=res.data.message
-      // 解构赋值
-      // console.log(res)
-      const {message}=res.data;
-      // 判断 成功，重定向跳转到首页
-      if(message==="用户不存在"){
-        this.$router.push("") // 暂无首页  先为/
-      }
+        url: "/login",
+        method: "POST", // 请求类型get/post method：类似juurey.ajax的 type
+        data: this.form
+      }).then(res => {
+        // then然后 类似于juqery.ajax的 success 函数
+        // 常规获取 后台成功/错误信息
+        // let message=res.data.message
+        // 解构赋值
+        // console.log(res)
 
-      })
+        const { message, data } = res.data;
+        // 判断 成功，重定向跳转到首页
+        if (message === "登录成功") {
+          // 验证有无进入
+          // console.log(123456789);
+          // 验证登录成功，则保存token和id到本地
+          //      保存名称为token 👇       👇 res.data. 下 获取token
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user_id", data.user.id);
+          this.$router.push("/personal"); // 暂无首页  先为/, 登录成功跳转个人信息页/personal
+        }
+      });
     }
-  },
-
+  }
 };
 </script>
 
