@@ -18,7 +18,6 @@ import VueRouter from "vue-router";
   import EditData from "@/page/EditData.vue";
   import myFocus from "@/page/myFocus.vue";
   import followTip from "@/page/followTip.vue";
-  import index from "@/page/index.vue";
 
 
 // 在 .vue 格式的模版中，需要routerLink/view的话，必须注册 插件
@@ -33,7 +32,7 @@ axios.defaults.baseURL="http://localhost:3000";
 
 // 创建路由设置
 const routes=[
-  {path:"/",component:index},
+  {path:"/",component:Login},
   {path:"/login",component:Login},
   {path:"/register",component:Register},
   {path:"/personal",component:Personal},
